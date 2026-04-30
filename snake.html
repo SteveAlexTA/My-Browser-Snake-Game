@@ -2,20 +2,21 @@
 <html lang="en">
 <head>
    <meta charset="UTF-8">
-   <title>Just A Snake Game</title>
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <title>Snake Game</title>
    <link rel="stylesheet" href="style.css">
-   <style>
-      body {
-        display: flex;
-        justify-content: center;
-        align-items: center; 
-        height: 100vh;
-        margin: 0;
-        background-color: #222;
-      }
-    </style>
 </head>
 <body>
+   <header id="game-header">
+      <span id="game-title">🐍 SNAKE</span>
+      <div id="score-box">
+         <span id="score-label">SCORE</span>
+         <span id="score">0</span>
+      </div>
+   </header>
+
+   <div id="canvas-container"></div>
+
    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.0.0/p5.js"></script>
    <script src="config.js" charset="utf-8"></script>
    <script src="snake.js" charset="utf-8"></script>

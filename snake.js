@@ -19,8 +19,8 @@ class Snake {
     this.body.push(createVector(this.head.x, this.head.y));
     this.head.x += this.vel.x * GRID_SIZE;
     this.head.y += this.vel.y * GRID_SIZE;
-    this.head.x = (this.head.x + WIDTH) % WIDTH;
-    this.head.y = (this.head.y + HEIGHT) % HEIGHT;
+    this.head.x = (this.head.x + width) % width;
+    this.head.y = (this.head.y + height) % height;
     if (this.length < this.body.length) {
       this.body.shift();
     }
