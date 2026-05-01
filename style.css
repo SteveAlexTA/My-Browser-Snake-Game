@@ -1,36 +1,210 @@
-* {
+/* ── Reset & Base ── */
+*, *::before, *::after {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
 
-body {
-  background: #111;
-  display: flex;
-  flex-direction: column;
-  height: 100vh;
+html, body {
+  height: 100%;
+  width: 100%;
   overflow: hidden;
   font-family: 'Segoe UI', Arial, sans-serif;
 }
 
-/* ── Score Header ── */
+.hidden { display: none !important; }
+
+/* ── Background (shared) ── */
+body {
+  background: radial-gradient(ellipse at center, #0d3b1e 0%, #071a0d 60%, #040e08 100%);
+}
+
+/* ════════════════════════════════
+   HOME SCREEN
+════════════════════════════════ */
+#home-screen {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  width: 100vw;
+}
+
+#menu-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 14px;
+  background: #0d2b14;
+  border: 2px solid #00c853;
+  border-radius: 20px;
+  padding: 36px 32px 28px;
+  width: min(380px, 90vw);
+  box-shadow:
+    0 0 30px rgba(0, 200, 83, 0.5),
+    0 0 60px rgba(0, 200, 83, 0.2),
+    inset 0 0 30px rgba(0, 200, 83, 0.05);
+}
+
+/* Title */
+#menu-title {
+  font-size: clamp(2.4rem, 8vw, 3.2rem);
+  font-weight: 900;
+  letter-spacing: 10px;
+  color: #00e676;
+  text-shadow:
+    0 0 10px rgba(0, 230, 118, 0.9),
+    0 0 30px rgba(0, 230, 118, 0.5);
+  text-transform: uppercase;
+  line-height: 1;
+}
+
+#menu-subtitle {
+  font-size: 0.75rem;
+  font-weight: 500;
+  letter-spacing: 6px;
+  color: #4caf7d;
+  text-transform: uppercase;
+  margin-top: -6px;
+}
+
+/* High Score */
+#high-score-box {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: #071a0d;
+  border: 1.5px solid #00c853;
+  border-radius: 10px;
+  padding: 10px 24px;
+  width: 100%;
+  justify-content: center;
+  color: #00e676;
+  font-size: 1rem;
+  font-weight: 500;
+  letter-spacing: 1px;
+  margin: 4px 0 6px;
+}
+
+#high-score-box strong {
+  color: #ffd740;
+  font-size: 1.1rem;
+}
+
+/* Buttons */
+#menu-card button {
+  width: 100%;
+  padding: 14px 20px;
+  border: none;
+  border-radius: 10px;
+  font-size: 0.95rem;
+  font-weight: 700;
+  letter-spacing: 3px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  transition: filter 0.15s, transform 0.1s;
+}
+
+#menu-card button:active {
+  transform: scale(0.97);
+}
+
+#btn-play {
+  background: #00e676;
+  color: #071a0d;
+  box-shadow: 0 0 16px rgba(0, 230, 118, 0.5);
+  font-size: 1rem;
+}
+
+#btn-play:hover {
+  filter: brightness(1.1);
+  box-shadow: 0 0 24px rgba(0, 230, 118, 0.7);
+}
+
+#btn-leaderboard {
+  background: #d4860a;
+  color: #1a0e00;
+  box-shadow: 0 0 12px rgba(212, 134, 10, 0.4);
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+#btn-settings {
+  background: #00843d;
+  color: #e0ffe8;
+  box-shadow: 0 0 12px rgba(0, 132, 61, 0.4);
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+/* Nav dots */
+#nav-dots {
+  display: flex;
+  gap: 8px;
+  margin-top: 4px;
+}
+
+.dot {
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: #2d6b42;
+}
+
+.dot.active {
+  background: #00e676;
+  box-shadow: 0 0 6px #00e676;
+}
+
+/* ════════════════════════════════
+   GAME SCREEN
+════════════════════════════════ */
+#game-screen {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  width: 100vw;
+}
+
+/* Header */
 #game-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 0 28px;
+  padding: 0 20px;
   height: 58px;
-  background: #1a1a1a;
-  border-bottom: 2px solid #2a2a2a;
+  background: #071a0d;
+  border-bottom: 2px solid #00c853;
   flex-shrink: 0;
+  box-shadow: 0 0 18px rgba(0, 200, 83, 0.25);
 }
 
-#game-title {
-  color: #4ade80;
-  font-size: 1.3rem;
+#back-btn {
+  background: transparent;
+  border: 1.5px solid #2d6b42;
+  color: #4caf7d;
+  padding: 6px 14px;
+  border-radius: 8px;
+  font-size: 0.8rem;
+  letter-spacing: 1px;
+  cursor: pointer;
+  transition: border-color 0.2s, color 0.2s;
+}
+
+#back-btn:hover {
+  border-color: #00e676;
+  color: #00e676;
+}
+
+#game-title-small {
+  color: #00e676;
+  font-size: 1.1rem;
   font-weight: 700;
   letter-spacing: 5px;
-  text-transform: uppercase;
+  text-shadow: 0 0 8px rgba(0, 230, 118, 0.6);
 }
 
 #score-box {
@@ -41,27 +215,32 @@ body {
 }
 
 #score-label {
-  color: #555;
-  font-size: 0.65rem;
+  color: #2d6b42;
+  font-size: 0.6rem;
   letter-spacing: 3px;
   text-transform: uppercase;
 }
 
 #score {
-  color: #fff;
-  font-size: 1.6rem;
+  color: #00e676;
+  font-size: 1.5rem;
   font-weight: 700;
+  text-shadow: 0 0 8px rgba(0, 230, 118, 0.5);
 }
 
-/* ── Canvas Area ── */
+/* Canvas area */
 #canvas-container {
   flex: 1;
   display: flex;
   justify-content: center;
   align-items: center;
-  background: #111;
+  background: transparent;
 }
 
 canvas {
   display: block;
+  border: 1.5px solid #1a4d28;
+  box-shadow:
+    0 0 20px rgba(0, 200, 83, 0.2),
+    inset 0 0 40px rgba(0, 0, 0, 0.4);
 }

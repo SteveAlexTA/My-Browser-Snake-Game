@@ -1,16 +1,22 @@
-class Food{
-   constructor () {
-      this.newFood();
-   }
-   newFood(){
-      this.x = Math.floor(random(width));
-      this.y = Math.floor(random(height));
+class Food {
+  constructor(p) {
+    this.p = p;
+    this.x = 0;
+    this.y = 0;
+    this.newFood(p);
+  }
 
-      this.x = Math.floor(this.x / GRID_SIZE) * GRID_SIZE;
-      this.y = Math.floor(this.y / GRID_SIZE) * GRID_SIZE;
-   }
-   show(){
-      fill(255, 40, 0);
-      rect(this.x, this.y, GRID_SIZE, GRID_SIZE);
-   }
+  newFood(p) {
+    p = p || this.p;
+    this.x = Math.floor(p.random(p.width  / GRID_SIZE)) * GRID_SIZE;
+    this.y = Math.floor(p.random(p.height / GRID_SIZE)) * GRID_SIZE;
+  }
+
+  show(p) {
+    p = p || this.p;
+    p.noStroke();
+    // Glowing red food
+    p.fill(255, 60, 60);
+    p.rect(this.x + 1, this.y + 1, GRID_SIZE - 3, GRID_SIZE - 3, 4);
+  }
 }

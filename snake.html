@@ -1,26 +1,59 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-   <meta charset="UTF-8">
-   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-   <title>Snake Game</title>
-   <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Snake Classic Game</title>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
-   <header id="game-header">
-      <span id="game-title">🐍 SNAKE</span>
-      <div id="score-box">
-         <span id="score-label">SCORE</span>
-         <span id="score">0</span>
+
+  <!-- ── HOME SCREEN ── -->
+  <div id="home-screen">
+    <div id="menu-card">
+      <h1 id="menu-title">SNAKE</h1>
+      <p id="menu-subtitle">CLASSIC GAME</p>
+
+      <div id="high-score-box">
+        <span>🏆</span>
+        <span>High Score: <strong id="high-score-value">0</strong></span>
       </div>
-   </header>
 
-   <div id="canvas-container"></div>
+      <button id="btn-play" onclick="startGame()">
+        <span>▶</span> PLAY GAME
+      </button>
+      <button id="btn-leaderboard" disabled>
+        <span>🏆</span> LEADERBOARD
+      </button>
+      <button id="btn-settings" disabled>
+        <span>⚙</span> SETTINGS
+      </button>
 
-   <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.0.0/p5.js"></script>
-   <script src="config.js" charset="utf-8"></script>
-   <script src="snake.js" charset="utf-8"></script>
-   <script src="food.js" charset="utf-8"></script>
-   <script src="game.js" charset="utf-8"></script>
+      <div id="nav-dots">
+        <span class="dot active"></span>
+        <span class="dot"></span>
+        <span class="dot"></span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── GAME SCREEN ── -->
+  <div id="game-screen" class="hidden">
+    <header id="game-header">
+      <button id="back-btn" onclick="goHome()">← Menu</button>
+      <span id="game-title-small">🐍 SNAKE</span>
+      <div id="score-box">
+        <span id="score-label">SCORE</span>
+        <span id="score">0</span>
+      </div>
+    </header>
+    <div id="canvas-container"></div>
+  </div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.0.0/p5.js"></script>
+  <script src="config.js"></script>
+  <script src="snake.js"></script>
+  <script src="food.js"></script>
+  <script src="game.js"></script>
 </body>
 </html>

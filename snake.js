@@ -1,33 +1,42 @@
 class Snake {
-  constructor() {
-    this.head = createVector(0, 0);
-    this.vel = createVector(1, 0); 
-    this.body = []; 
-    this.length = 0; 
+  constructor(p) {
+    this.p = p;
+    this.head = p.createVector(0, 0);
+    this.vel = p.createVector(1, 0);
+    this.body = [];
+    this.length = 0;
     this.isDead = false;
   }
-  show() {
-    noStroke();
-    fill(255);
-    rect(this.head.x, this.head.y, GRID_SIZE, GRID_SIZE);
-    fill(155);
-    for (let vector of this.body) {
-      rect(vector.x, vector.y, GRID_SIZE, GRID_SIZE);
+
+  show(p) {
+    p = p || this.p;
+    p.noStroke();
+
+    // Body segments
+    p.fill(0, 180, 80);
+    for (let v of this.body) {
+      p.rect(v.x, v.y, GRID_SIZE - 1, GRID_SIZE - 1, 3);
     }
+
+    // Head (brighter)
+    p.fill(0, 230, 118);
+    p.rect(this.head.x, this.head.y, GRID_SIZE - 1, GRID_SIZE - 1, 4);
   }
-  update() {
-    this.body.push(createVector(this.head.x, this.head.y));
+
+  update(p) {
+    p = p || this.p;
+    this.body.push(p.createVector(this.head.x, this.head.y));
     this.head.x += this.vel.x * GRID_SIZE;
     this.head.y += this.vel.y * GRID_SIZE;
-    this.head.x = (this.head.x + width) % width;
-    this.head.y = (this.head.y + height) % height;
+    this.head.x = (this.head.x + p.width) % p.width;
+    this.head.y = (this.head.y + p.height) % p.height;
     if (this.length < this.body.length) {
       this.body.shift();
     }
-    for (let vector of this.body) {
-      if (vector.x === this.head.x && vector.y === this.head.y) {
+    for (let v of this.body) {
+      if (v.x === this.head.x && v.y === this.head.y) {
         this.isDead = true;
       }
     }
   }
-}
+}
