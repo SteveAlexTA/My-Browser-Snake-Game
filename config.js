@@ -1,2 +1,2 @@
 const GRID_SIZE = 20;
-const SPEED = 10;
+let SPEED = 10;

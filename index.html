@@ -22,7 +22,7 @@
       <button id="btn-play" class="btn-primary" onclick="startGame()">
         <span>▶</span> PLAY GAME
       </button>
-      <button id="btn-leaderboard" disabled>
+      <button id="btn-leaderboard" onclick="alert('Leaderboard coming soon!')">
         <span>🏆</span> LEADERBOARD
       </button>
       <button id="btn-settings" onclick="openSettings()">
@@ -42,6 +42,21 @@
     <div class="menu-card">
       <h2 class="menu-title" style="font-size: 2.2rem; text-align: center;">SETTINGS</h2>
       
+      <div class="settings-form">
+        <div class="setting-row">
+          <label for="difficulty">Difficulty:</label>
+          <select id="difficulty">
+            <option value="15">Easy</option>
+            <option value="10" selected>Medium</option>
+            <option value="5">Hard</option>
+          </select>
+        </div>
+        <div class="setting-row">
+          <label for="sound">Sound:</label>
+          <input type="checkbox" id="sound" checked>
+        </div>
+      </div>
+      
       <div class="instructions-box">
         <h3>CONTROLS</h3>
         <p><span>W / ⬆</span> Move Up</p>
@@ -52,9 +67,10 @@
         <p><span>Click ⏸</span> Pause/Resume</p>
       </div>
 
-      <button class="btn-primary" onclick="closeSettings()">
-        <span>←</span> BACK
-      </button>
+      <div style="display: flex; gap: 10px; width: 100%;">
+        <button class="btn-secondary" onclick="closeSettings(false)">CANCEL</button>
+        <button class="btn-primary" onclick="closeSettings(true)">SAVE</button>
+      </div>
     </div>
   </div>
 

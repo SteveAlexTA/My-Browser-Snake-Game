@@ -5,8 +5,21 @@ let highScore = 0;
 let gameOver = false;
 let paused = false;
 let p5Instance = null;
+let soundEnabled = true;
 
 const HEADER_HEIGHT = 58;
+
+function loadSettings() {
+  let storedDifficulty = localStorage.getItem('snake_difficulty');
+  if (storedDifficulty) {
+    SPEED = parseInt(storedDifficulty);
+  }
+  let storedSound = localStorage.getItem('snake_sound');
+  if (storedSound !== null) {
+    soundEnabled = storedSound === 'true';
+  }
+}
+loadSettings();
 
 function startGame() {
   document.getElementById('home-screen').classList.add('hidden');
@@ -181,11 +194,19 @@ function goHome() {
 }
 
 function openSettings() {
+  document.getElementById('difficulty').value = SPEED.toString();
+  document.getElementById('sound').checked = soundEnabled;
   document.getElementById('home-screen').classList.add('hidden');
   document.getElementById('settings-screen').classList.remove('hidden');
 }
 
-function closeSettings() {
+function closeSettings(save) {
+  if (save) {
+    SPEED = parseInt(document.getElementById('difficulty').value);
+    soundEnabled = document.getElementById('sound').checked;
+    localStorage.setItem('snake_difficulty', SPEED.toString());
+    localStorage.setItem('snake_sound', soundEnabled.toString());
+  }
   document.getElementById('settings-screen').classList.add('hidden');
   document.getElementById('home-screen').classList.remove('hidden');
 }
