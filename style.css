@@ -22,7 +22,7 @@ body {
 /* ════════════════════════════════
    HOME SCREEN
 ════════════════════════════════ */
-#home-screen, #settings-screen {
+#home-screen, #settings-screen, #leaderboard-screen {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -242,6 +242,54 @@ body {
 .instructions-box p span {
   font-weight: bold;
   color: #fff;
+}
+
+/* Leaderboard */
+.leaderboard-container {
+  width: 100%;
+  background: #071a0d;
+  border: 1.5px solid #00c853;
+  border-radius: 10px;
+  padding: 10px;
+  margin-top: 10px;
+  max-height: 250px;
+  overflow-y: auto;
+}
+
+#leaderboard-table {
+  width: 100%;
+  border-collapse: collapse;
+  color: #fff;
+  font-size: 0.95rem;
+  text-align: center;
+}
+
+#leaderboard-table th {
+  color: #d4860a;
+  padding-bottom: 8px;
+  border-bottom: 1px solid #d4860a;
+  letter-spacing: 1px;
+}
+
+#leaderboard-table td {
+  padding: 8px 4px;
+  border-bottom: 1px solid rgba(0, 200, 83, 0.2);
+}
+
+#leaderboard-table tr:nth-child(1) {
+  color: #ffd740;
+  font-weight: bold;
+  font-size: 1.1rem;
+}
+
+#leaderboard-table tr:nth-child(2) { color: #e0e0e0; font-weight: bold; }
+#leaderboard-table tr:nth-child(3) { color: #cd7f32; font-weight: bold; }
+
+#empty-leaderboard {
+  text-align: center;
+  color: #4caf7d;
+  padding: 20px 0;
+  font-size: 1rem;
 }
 
 /* ════════════════════════════════

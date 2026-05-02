@@ -18,6 +18,13 @@ function loadSettings() {
   if (storedSound !== null) {
     soundEnabled = storedSound === 'true';
   }
+  
+  let scores = JSON.parse(localStorage.getItem('snake_scores') || '[]');
+  if (scores.length > 0) {
+    highScore = scores[0].score;
+    let hsEl = document.getElementById('high-score-value');
+    if (hsEl) hsEl.textContent = highScore;
+  }
 }
 loadSettings();
 
@@ -65,6 +72,7 @@ function startGame() {
       }
       if (snake.isDead) {
         gameOver = true;
+        saveScoreToLeaderboard(score);
         if (score > highScore) {
           highScore = score;
           document.getElementById('high-score-value').textContent = highScore;
@@ -209,4 +217,62 @@ function closeSettings(save) {
   }
   document.getElementById('settings-screen').classList.add('hidden');
   document.getElementById('home-screen').classList.remove('hidden');
+}
+
+// FR-003: View Leaderboard
+function saveScoreToLeaderboard(finalScore) {
+  if (finalScore <= 0) return; // Don't save 0 scores
+  let scores = JSON.parse(localStorage.getItem('snake_scores') || '[]');
+  scores.push({
+    score: finalScore,
+    date: new Date().toLocaleDateString()
+  });
+  // Sort descending
+  scores.sort((a, b) => b.score - a.score);
+  // Keep only top 10
+  scores = scores.slice(0, 10);
+  localStorage.setItem('snake_scores', JSON.stringify(scores));
+}
+
+function openLeaderboard() {
+  populateLeaderboardTable();
+  document.getElementById('home-screen').classList.add('hidden');
+  document.getElementById('leaderboard-screen').classList.remove('hidden');
+}
+
+function closeLeaderboard() {
+  document.getElementById('leaderboard-screen').classList.add('hidden');
+  document.getElementById('home-screen').classList.remove('hidden');
+}
+
+function populateLeaderboardTable() {
+  let scores = JSON.parse(localStorage.getItem('snake_scores') || '[]');
+  let tbody = document.getElementById('leaderboard-body');
+  let table = document.getElementById('leaderboard-table');
+  let emptyMsg = document.getElementById('empty-leaderboard');
+  
+  tbody.innerHTML = '';
+  
+  if (scores.length === 0) {
+    table.classList.add('hidden');
+    emptyMsg.classList.remove('hidden');
+  } else {
+    table.classList.remove('hidden');
+    emptyMsg.classList.add('hidden');
+    
+    scores.forEach((entry, index) => {
+      let tr = document.createElement('tr');
+      let rankTd = document.createElement('td');
+      rankTd.textContent = index + 1;
+      let scoreTd = document.createElement('td');
+      scoreTd.textContent = entry.score;
+      let dateTd = document.createElement('td');
+      dateTd.textContent = entry.date;
+      
+      tr.appendChild(rankTd);
+      tr.appendChild(scoreTd);
+      tr.appendChild(dateTd);
+      tbody.appendChild(tr);
+    });
+  }
 }

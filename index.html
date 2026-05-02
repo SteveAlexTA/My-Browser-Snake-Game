@@ -22,7 +22,7 @@
       <button id="btn-play" class="btn-primary" onclick="startGame()">
         <span>▶</span> PLAY GAME
       </button>
-      <button id="btn-leaderboard" onclick="alert('Leaderboard coming soon!')">
+      <button id="btn-leaderboard" onclick="openLeaderboard()">
         <span>🏆</span> LEADERBOARD
       </button>
       <button id="btn-settings" onclick="openSettings()">
@@ -71,6 +71,35 @@
         <button class="btn-secondary" onclick="closeSettings(false)">CANCEL</button>
         <button class="btn-primary" onclick="closeSettings(true)">SAVE</button>
       </div>
+    </div>
+  </div>
+
+  <!-- ── LEADERBOARD SCREEN ── -->
+  <div id="leaderboard-screen" class="hidden">
+    <div class="menu-card" style="width: min(420px, 95vw);">
+      <h2 class="menu-title" style="font-size: 2.2rem; text-align: center; color: #d4860a; text-shadow: 0 0 10px rgba(212, 134, 10, 0.9);">LEADERBOARD</h2>
+      
+      <div class="leaderboard-container">
+        <table id="leaderboard-table">
+          <thead>
+            <tr>
+              <th>Rank</th>
+              <th>Score</th>
+              <th>Date</th>
+            </tr>
+          </thead>
+          <tbody id="leaderboard-body">
+            <!-- Scores populated via JS -->
+          </tbody>
+        </table>
+        <div id="empty-leaderboard" class="hidden">
+          No scores yet. Play a game!
+        </div>
+      </div>
+
+      <button class="btn-primary" onclick="closeLeaderboard()" style="margin-top: 10px;">
+        <span>←</span> BACK
+      </button>
     </div>
   </div>
 
