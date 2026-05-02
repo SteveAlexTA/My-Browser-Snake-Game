@@ -22,7 +22,7 @@ body {
 /* ════════════════════════════════
    HOME SCREEN
 ════════════════════════════════ */
-#home-screen {
+#home-screen, #settings-screen {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -30,7 +30,7 @@ body {
   width: 100vw;
 }
 
-#menu-card {
+.menu-card {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -47,7 +47,7 @@ body {
 }
 
 /* Title */
-#menu-title {
+.menu-title {
   font-size: clamp(2.4rem, 8vw, 3.2rem);
   font-weight: 900;
   letter-spacing: 10px;
@@ -92,7 +92,7 @@ body {
 }
 
 /* Buttons */
-#menu-card button {
+.menu-card button {
   width: 100%;
   padding: 14px 20px;
   border: none;
@@ -108,18 +108,18 @@ body {
   transition: filter 0.15s, transform 0.1s;
 }
 
-#menu-card button:active {
+.menu-card button:active {
   transform: scale(0.97);
 }
 
-#btn-play {
+#btn-play, .btn-primary {
   background: #00e676;
   color: #071a0d;
   box-shadow: 0 0 16px rgba(0, 230, 118, 0.5);
   font-size: 1rem;
 }
 
-#btn-play:hover {
+#btn-play:hover, .btn-primary:hover {
   filter: brightness(1.1);
   box-shadow: 0 0 24px rgba(0, 230, 118, 0.7);
 }
@@ -157,6 +157,37 @@ body {
 .dot.active {
   background: #00e676;
   box-shadow: 0 0 6px #00e676;
+}
+
+/* Instructions Box */
+.instructions-box {
+  margin-top: 10px;
+  margin-bottom: 20px;
+  color: #00e676;
+  text-align: left;
+  line-height: 1.8;
+  font-size: 0.95rem;
+  width: 100%;
+}
+
+.instructions-box h3 {
+  color: #4caf7d;
+  margin-bottom: 12px;
+  font-size: 1.1rem;
+  text-align: center;
+  letter-spacing: 2px;
+}
+
+.instructions-box p {
+  display: flex;
+  justify-content: space-between;
+  border-bottom: 1px solid rgba(0, 230, 118, 0.2);
+  padding: 4px 0;
+}
+
+.instructions-box p span {
+  font-weight: bold;
+  color: #fff;
 }
 
 /* ════════════════════════════════
@@ -205,6 +236,33 @@ body {
   font-weight: 700;
   letter-spacing: 5px;
   text-shadow: 0 0 8px rgba(0, 230, 118, 0.6);
+}
+
+#header-right {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+#pause-btn {
+  background: transparent;
+  border: 1.5px solid #2d6b42;
+  color: #00e676;
+  width: 36px;
+  height: 36px;
+  border-radius: 8px;
+  font-size: 1rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: border-color 0.2s, background 0.2s;
+  flex-shrink: 0;
+}
+
+#pause-btn:hover {
+  border-color: #00e676;
+  background: rgba(0, 230, 118, 0.1);
 }
 
 #score-box {
