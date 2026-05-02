@@ -59,7 +59,6 @@ function startGame() {
       food.show(p);
 
       if (paused) {
-        drawPauseOverlay(p);
         return;
       }
 
@@ -85,6 +84,10 @@ function startGame() {
         if (p.keyCode === p.ENTER || p.keyCode === 32) {
           newGame(p);
         }
+        return;
+      }
+      if (p.keyCode === 27 || p.key === 'p' || p.key === 'P') {
+        togglePause();
         return;
       }
       if (paused) return; // Block movement while paused
@@ -114,24 +117,7 @@ function calcCanvasSize() {
   return Math.floor(side / GRID_SIZE) * GRID_SIZE;
 }
 
-// drawPauseOverlay — FR-001 Alternative Path: suspends game loop
-function drawPauseOverlay(p) {
-  p.fill(0, 0, 0, 170);
-  p.noStroke();
-  p.rect(0, 0, p.width, p.height);
 
-  p.textAlign(p.CENTER, p.CENTER);
-
-  p.fill(0, 230, 118);
-  p.textSize(Math.min(p.width * 0.1, 52));
-  p.textStyle(p.BOLD);
-  p.text('PAUSED', p.width / 2, p.height / 2 - 20);
-
-  p.fill(74, 175, 100);
-  p.textSize(Math.min(p.width * 0.036, 16));
-  p.textStyle(p.NORMAL);
-  p.text('Click ▶ to Resume', p.width / 2, p.height / 2 + 30);
-}
 
 function drawGameOver(p) {
   // Overlay
@@ -175,12 +161,26 @@ function newGame(p) {
   gameOver = false;
   paused = false;
   document.getElementById('score').textContent = '0';
+  document.getElementById('pause-overlay').classList.add('hidden');
   _updatePauseBtn();
 }
 
-// FR-001 Alternative Path: toggle pause/resume
+function restartGame() {
+  if (p5Instance) {
+    newGame(p5Instance);
+  }
+}
+
+// FR-001 & FR-004: toggle pause/resume
 function togglePause() {
+  if (gameOver) return;
   paused = !paused;
+  let overlay = document.getElementById('pause-overlay');
+  if (paused) {
+    overlay.classList.remove('hidden');
+  } else {
+    overlay.classList.add('hidden');
+  }
   _updatePauseBtn();
 }
 
@@ -193,6 +193,7 @@ function _updatePauseBtn() {
 
 function goHome() {
   paused = false;
+  document.getElementById('pause-overlay').classList.add('hidden');
   if (p5Instance) {
     p5Instance.remove();
     p5Instance = null;

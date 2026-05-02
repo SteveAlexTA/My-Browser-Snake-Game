@@ -315,22 +315,7 @@ body {
   box-shadow: 0 0 18px rgba(0, 200, 83, 0.25);
 }
 
-#back-btn {
-  background: transparent;
-  border: 1.5px solid #2d6b42;
-  color: #4caf7d;
-  padding: 6px 14px;
-  border-radius: 8px;
-  font-size: 0.8rem;
-  letter-spacing: 1px;
-  cursor: pointer;
-  transition: border-color 0.2s, color 0.2s;
-}
 
-#back-btn:hover {
-  border-color: #00e676;
-  color: #00e676;
-}
 
 #game-title-small {
   color: #00e676;
@@ -395,6 +380,7 @@ body {
   justify-content: center;
   align-items: center;
   background: transparent;
+  position: relative;
 }
 
 canvas {
@@ -403,4 +389,22 @@ canvas {
   box-shadow:
     0 0 20px rgba(0, 200, 83, 0.2),
     inset 0 0 40px rgba(0, 0, 0, 0.4);
+}
+
+#pause-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.75);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  z-index: 100;
+  backdrop-filter: blur(4px);
+}
+#pause-overlay.hidden {
+  display: none !important;
 }
