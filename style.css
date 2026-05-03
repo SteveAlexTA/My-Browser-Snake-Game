@@ -156,24 +156,7 @@ body {
   filter: brightness(1.1);
 }
 
-/* Nav dots */
-#nav-dots {
-  display: flex;
-  gap: 8px;
-  margin-top: 4px;
-}
 
-.dot {
-  width: 9px;
-  height: 9px;
-  border-radius: 50%;
-  background: #2d6b42;
-}
-
-.dot.active {
-  background: #00e676;
-  box-shadow: 0 0 6px #00e676;
-}
 
 /* Settings Form */
 .settings-form {
@@ -391,7 +374,7 @@ canvas {
     inset 0 0 40px rgba(0, 0, 0, 0.4);
 }
 
-#pause-overlay {
+#pause-overlay, #game-over-overlay {
   position: absolute;
   top: 0;
   left: 0;
@@ -405,6 +388,6 @@ canvas {
   z-index: 100;
   backdrop-filter: blur(4px);
 }
-#pause-overlay.hidden {
+#pause-overlay.hidden, #game-over-overlay.hidden {
   display: none !important;
 }

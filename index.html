@@ -29,11 +29,7 @@
         <span>⚙</span> SETTINGS
       </button>
 
-      <div id="nav-dots">
-        <span class="dot active"></span>
-        <span class="dot"></span>
-        <span class="dot"></span>
-      </div>
+
     </div>
   </div>
 
@@ -122,6 +118,14 @@
           <button class="btn-primary" onclick="togglePause()" style="font-size: 1rem; padding: 12px;">▶ Resume</button>
           <button class="btn-secondary" onclick="restartGame()" style="font-size: 1rem; padding: 12px; background: #d4860a;">↻ Restart</button>
           <button class="btn-secondary" onclick="goHome()" style="font-size: 1rem; padding: 12px; background: #8b0000; color: white;">✖ Quit</button>
+        </div>
+      </div>
+      <div id="game-over-overlay" class="hidden">
+        <h2 style="color: #ff4646; font-size: 2.5rem; letter-spacing: 5px; margin-bottom: 10px; text-shadow: 0 0 15px rgba(255,70,70,0.8);">GAME OVER</h2>
+        <div style="color: #00e676; font-size: 1.2rem; font-weight: bold; margin-bottom: 20px;">SCORE: <span id="game-over-score">0</span></div>
+        <div style="display: flex; flex-direction: column; gap: 15px; width: 220px;">
+          <button class="btn-primary" onclick="restartGame()" style="font-size: 1rem; padding: 12px; background: #d4860a;">↻ Restart (Enter)</button>
+          <button class="btn-secondary" onclick="goHome()" style="font-size: 1rem; padding: 12px; background: #8b0000; color: white;">✖ Menu (Esc)</button>
         </div>
       </div>
     </div>

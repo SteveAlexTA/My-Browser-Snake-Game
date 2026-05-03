@@ -52,7 +52,6 @@ function startGame() {
       p.background(7, 26, 13);
 
       if (gameOver) {
-        drawGameOver(p);
         return;
       }
 
@@ -88,6 +87,11 @@ function startGame() {
           highScore = score;
           document.getElementById('high-score-value').textContent = highScore;
         }
+        let goOverlay = document.getElementById('game-over-overlay');
+        if (goOverlay) {
+          document.getElementById('game-over-score').textContent = score;
+          goOverlay.classList.remove('hidden');
+        }
       }
     };
 
@@ -95,6 +99,8 @@ function startGame() {
       if (gameOver) {
         if (p.keyCode === p.ENTER || p.keyCode === 32) {
           newGame(p);
+        } else if (p.keyCode === 27) { // Esc to go home
+          goHome();
         }
         return;
       }
@@ -129,33 +135,6 @@ function calcCanvasSize() {
   return Math.floor(side / GRID_SIZE) * GRID_SIZE;
 }
 
-function drawGameOver(p) {
-  // Overlay
-  p.fill(0, 0, 0, 190);
-  p.noStroke();
-  p.rect(0, 0, p.width, p.height);
-
-  p.textAlign(p.CENTER, p.CENTER);
-  p.noStroke();
-
-  // GAME OVER
-  p.fill(255, 70, 70);
-  p.textSize(Math.min(p.width * 0.1, 52));
-  p.textStyle(p.BOLD);
-  p.text('GAME OVER', p.width / 2, p.height / 2 - 60);
-
-  // Score
-  p.fill(0, 230, 118);
-  p.textSize(Math.min(p.width * 0.06, 28));
-  p.textStyle(p.NORMAL);
-  p.text('Score: ' + score, p.width / 2, p.height / 2 - 10);
-
-  // High Score
-  p.fill(255, 215, 64);
-  p.textSize(Math.min(p.width * 0.045, 20));
-  p.text('Best: ' + highScore, p.width / 2, p.height / 2 + 28);
-
-}
 
 function eatFood(p) {
   snake.length++;
@@ -186,6 +165,8 @@ function newGame(p) {
   paused = false;
   document.getElementById('score').textContent = '0';
   document.getElementById('pause-overlay').classList.add('hidden');
+  let goOverlay = document.getElementById('game-over-overlay');
+  if (goOverlay) goOverlay.classList.add('hidden');
   _updatePauseBtn();
 }
 
@@ -218,6 +199,8 @@ function _updatePauseBtn() {
 function goHome() {
   paused = false;
   document.getElementById('pause-overlay').classList.add('hidden');
+  let goOverlay = document.getElementById('game-over-overlay');
+  if (goOverlay) goOverlay.classList.add('hidden');
   if (p5Instance) {
     p5Instance.remove();
     p5Instance = null;
