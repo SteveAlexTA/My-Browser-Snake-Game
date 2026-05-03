@@ -1,5 +1,7 @@
 let snake;
 let food;
+let bigFood;
+let regularFoodsEaten = 0;
 let score = 0;
 let highScore = 0;
 let gameOver = false;
@@ -41,7 +43,7 @@ function startGame() {
 
     p.setup = function() {
       let size = calcCanvasSize();
-      let canvas = p.createCanvas(size, size);
+      let canvas = p.createCanvas(size.w, size.h);
       canvas.parent('canvas-container');
       newGame(p);
     };
@@ -57,6 +59,9 @@ function startGame() {
       // Always render current game state so it's visible while paused
       snake.show(p);
       food.show(p);
+      if (bigFood.active) {
+        bigFood.show(p);
+      }
 
       if (paused) {
         return;
@@ -69,6 +74,13 @@ function startGame() {
       if (snake.head.x === food.x && snake.head.y === food.y) {
         eatFood(p);
       }
+      if (bigFood.active && snake.head.x === bigFood.x && snake.head.y === bigFood.y) {
+        eatBigFood(p);
+      }
+      if (bigFood.active) {
+        bigFood.updateTimer();
+      }
+      
       if (snake.isDead) {
         gameOver = true;
         saveScoreToLeaderboard(score);
@@ -104,7 +116,7 @@ function startGame() {
 
     p.windowResized = function() {
       let size = calcCanvasSize();
-      p.resizeCanvas(size, size);
+      p.resizeCanvas(size.w, size.h);
     };
 
   });
@@ -113,8 +125,12 @@ function startGame() {
 function calcCanvasSize() {
   let availableW = window.innerWidth;
   let availableH = window.innerHeight - HEADER_HEIGHT;
-  let side = Math.min(availableW, availableH);
-  return Math.floor(side / GRID_SIZE) * GRID_SIZE;
+  
+  // Use up to 95% of width and 90% of height for a wider play area
+  let w = Math.floor((availableW * 0.95) / GRID_SIZE) * GRID_SIZE;
+  let h = Math.floor((availableH * 0.9) / GRID_SIZE) * GRID_SIZE;
+  
+  return { w, h };
 }
 
 
@@ -149,14 +165,28 @@ function drawGameOver(p) {
 
 function eatFood(p) {
   snake.length++;
-  score++;
+  score += 7;
   document.getElementById('score').textContent = score;
   food.newFood(p);
+  regularFoodsEaten++;
+  
+  if (regularFoodsEaten % 5 === 0 && !bigFood.active) {
+    bigFood.spawn(p);
+  }
+}
+
+function eatBigFood(p) {
+  snake.length += 2; // Increase length a bit
+  score += 50;       // 50 points as requested
+  document.getElementById('score').textContent = score;
+  bigFood.active = false;
 }
 
 function newGame(p) {
   snake = new Snake(p);
   food = new Food(p);
+  bigFood = new BigFood(p);
+  regularFoodsEaten = 0;
   score = 0;
   gameOver = false;
   paused = false;
