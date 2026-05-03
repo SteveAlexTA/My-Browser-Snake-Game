@@ -20,7 +20,7 @@ function loadSettings() {
   if (storedSound !== null) {
     soundEnabled = storedSound === 'true';
   }
-  
+
   let scores = JSON.parse(localStorage.getItem('snake_scores') || '[]');
   if (scores.length > 0) {
     highScore = scores[0].score;
@@ -39,16 +39,16 @@ function startGame() {
     p5Instance = null;
   }
 
-  p5Instance = new p5(function(p) {
+  p5Instance = new p5(function (p) {
 
-    p.setup = function() {
+    p.setup = function () {
       let size = calcCanvasSize();
-      let canvas = p.createCanvas(size.w, size.h);
+      let canvas = p.createCanvas(size, size);
       canvas.parent('canvas-container');
       newGame(p);
     };
 
-    p.draw = function() {
+    p.draw = function () {
       p.background(7, 26, 13);
 
       if (gameOver) {
@@ -80,7 +80,7 @@ function startGame() {
       if (bigFood.active) {
         bigFood.updateTimer();
       }
-      
+
       if (snake.isDead) {
         gameOver = true;
         saveScoreToLeaderboard(score);
@@ -91,7 +91,7 @@ function startGame() {
       }
     };
 
-    p.keyPressed = function() {
+    p.keyPressed = function () {
       if (gameOver) {
         if (p.keyCode === p.ENTER || p.keyCode === 32) {
           newGame(p);
@@ -106,17 +106,17 @@ function startGame() {
       if ((p.keyCode === p.UP_ARROW || p.key === 'w' || p.key === 'W') && snake.vel.y !== 1) {
         snake.vel.y = -1; snake.vel.x = 0;
       } else if ((p.keyCode === p.DOWN_ARROW || p.key === 's' || p.key === 'S') && snake.vel.y !== -1) {
-        snake.vel.y = 1;  snake.vel.x = 0;
+        snake.vel.y = 1; snake.vel.x = 0;
       } else if ((p.keyCode === p.LEFT_ARROW || p.key === 'a' || p.key === 'A') && snake.vel.x !== 1) {
-        snake.vel.y = 0;  snake.vel.x = -1;
+        snake.vel.y = 0; snake.vel.x = -1;
       } else if ((p.keyCode === p.RIGHT_ARROW || p.key === 'd' || p.key === 'D') && snake.vel.x !== -1) {
-        snake.vel.y = 0;  snake.vel.x = 1;
+        snake.vel.y = 0; snake.vel.x = 1;
       }
     };
 
-    p.windowResized = function() {
+    p.windowResized = function () {
       let size = calcCanvasSize();
-      p.resizeCanvas(size.w, size.h);
+      p.resizeCanvas(size, size);
     };
 
   });
@@ -125,15 +125,9 @@ function startGame() {
 function calcCanvasSize() {
   let availableW = window.innerWidth;
   let availableH = window.innerHeight - HEADER_HEIGHT;
-  
-  // Use up to 95% of width and 90% of height for a wider play area
-  let w = Math.floor((availableW * 0.95) / GRID_SIZE) * GRID_SIZE;
-  let h = Math.floor((availableH * 0.9) / GRID_SIZE) * GRID_SIZE;
-  
-  return { w, h };
+  let side = Math.min(availableW, availableH);
+  return Math.floor(side / GRID_SIZE) * GRID_SIZE;
 }
-
-
 
 function drawGameOver(p) {
   // Overlay
@@ -169,15 +163,15 @@ function eatFood(p) {
   document.getElementById('score').textContent = score;
   food.newFood(p);
   regularFoodsEaten++;
-  
+
   if (regularFoodsEaten % 5 === 0 && !bigFood.active) {
     bigFood.spawn(p);
   }
 }
 
 function eatBigFood(p) {
-  snake.length += 2; // Increase length a bit
-  score += 50;       // 50 points as requested
+  snake.length += 10; // Increase length more
+  score += 50;       // 50 points reward
   document.getElementById('score').textContent = score;
   bigFood.active = false;
 }
@@ -281,16 +275,16 @@ function populateLeaderboardTable() {
   let tbody = document.getElementById('leaderboard-body');
   let table = document.getElementById('leaderboard-table');
   let emptyMsg = document.getElementById('empty-leaderboard');
-  
+
   tbody.innerHTML = '';
-  
+
   if (scores.length === 0) {
     table.classList.add('hidden');
     emptyMsg.classList.remove('hidden');
   } else {
     table.classList.remove('hidden');
     emptyMsg.classList.add('hidden');
-    
+
     scores.forEach((entry, index) => {
       let tr = document.createElement('tr');
       let rankTd = document.createElement('td');
@@ -299,7 +293,7 @@ function populateLeaderboardTable() {
       scoreTd.textContent = entry.score;
       let dateTd = document.createElement('td');
       dateTd.textContent = entry.date;
-      
+
       tr.appendChild(rankTd);
       tr.appendChild(scoreTd);
       tr.appendChild(dateTd);
