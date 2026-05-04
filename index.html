@@ -102,13 +102,15 @@
   <!-- ── GAME SCREEN ── -->
   <div id="game-screen" class="hidden">
     <header id="game-header">
-      <span id="game-title-small">🐍 SNAKE</span>
+      <div id="header-left">
+        <div class="header-box">Score: <span id="score">0</span></div>
+      </div>
+      <div id="header-center">
+        <div class="header-box" style="font-weight: 700; color: #00e676; border-color: #00e676;">Snake Game</div>
+      </div>
       <div id="header-right">
+        <div class="header-box">High Score: <span id="header-high-score">0</span></div>
         <button id="pause-btn" onclick="togglePause()" title="Pause">⏸</button>
-        <div id="score-box">
-          <span id="score-label">SCORE</span>
-          <span id="score">0</span>
-        </div>
       </div>
     </header>
     <div id="canvas-container">

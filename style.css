@@ -291,69 +291,66 @@ body {
   justify-content: space-between;
   align-items: center;
   padding: 0 20px;
-  height: 58px;
+  height: 60px;
   background: #071a0d;
   border-bottom: 2px solid #00c853;
   flex-shrink: 0;
-  box-shadow: 0 0 18px rgba(0, 200, 83, 0.25);
 }
 
+/* Three columns to ensure center alignment is true center */
+#header-left, #header-center, #header-right {
+  display: flex;
+  flex: 1;
+  align-items: center;
+}
 
+#header-left {
+  justify-content: flex-start;
+}
 
-#game-title-small {
-  color: #00e676;
-  font-size: 1.1rem;
-  font-weight: 700;
-  letter-spacing: 5px;
-  text-shadow: 0 0 8px rgba(0, 230, 118, 0.6);
+#header-center {
+  justify-content: center;
 }
 
 #header-right {
-  display: flex;
-  align-items: center;
-  gap: 16px;
+  justify-content: flex-end;
+  gap: 15px;
 }
 
-#pause-btn {
-  background: transparent;
-  border: 1.5px solid #2d6b42;
-  color: #00e676;
-  width: 36px;
-  height: 36px;
-  border-radius: 8px;
+.header-box {
+  border: 1px solid #4caf7d;
+  padding: 5px 15px;
   font-size: 1rem;
+  color: #00e676;
+  background: rgba(0, 230, 118, 0.05);
+  display: flex;
+  align-items: center;
+  height: 36px;
+}
+
+.header-box span {
+  margin-left: 5px;
+  font-weight: bold;
+}
+#pause-btn {
+  background: #008000;
+  border: none;
+  color: #fff;
+  padding: 0 15px;
+  height: 36px;
+  border-radius: 5px;
+  font-size: 1rem;
+  font-weight: bold;
   cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: border-color 0.2s, background 0.2s;
+  transition: background 0.2s;
   flex-shrink: 0;
 }
 
 #pause-btn:hover {
-  border-color: #00e676;
-  background: rgba(0, 230, 118, 0.1);
-}
-
-#score-box {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-end;
-  line-height: 1.1;
-}
-
-#score-label {
-  color: #2d6b42;
-  font-size: 0.6rem;
-  letter-spacing: 3px;
-  text-transform: uppercase;
-}
-
-#score {
-  color: #00e676;
-  font-size: 1.5rem;
-  font-weight: 700;
-  text-shadow: 0 0 8px rgba(0, 230, 118, 0.5);
+  background: #006400;
 }
 
 /* Canvas area */

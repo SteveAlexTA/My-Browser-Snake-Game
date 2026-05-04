@@ -26,6 +26,8 @@ function loadSettings() {
     highScore = scores[0].score;
     let hsEl = document.getElementById('high-score-value');
     if (hsEl) hsEl.textContent = highScore;
+    let hHsEl = document.getElementById('header-high-score');
+    if (hHsEl) hHsEl.textContent = highScore;
   }
 }
 loadSettings();
@@ -86,6 +88,8 @@ function startGame() {
         if (score > highScore) {
           highScore = score;
           document.getElementById('high-score-value').textContent = highScore;
+          let hHsEl = document.getElementById('header-high-score');
+          if (hHsEl) hHsEl.textContent = highScore;
         }
         let goOverlay = document.getElementById('game-over-overlay');
         if (goOverlay) {
@@ -129,10 +133,7 @@ function startGame() {
 }
 
 function calcCanvasSize() {
-  let availableW = window.innerWidth;
-  let availableH = window.innerHeight - HEADER_HEIGHT;
-  let side = Math.min(availableW, availableH);
-  return Math.floor(side / GRID_SIZE) * GRID_SIZE;
+  return 700;
 }
 
 
